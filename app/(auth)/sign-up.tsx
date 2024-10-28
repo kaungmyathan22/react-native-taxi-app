@@ -187,7 +187,10 @@ const SignUp = () => {
             <CustomButton
               loading={isLoading}
               title="Browse Home"
-              onPress={() => router.push(`/(root)/(tabs)/home`)}
+              onPress={() => {
+                router.push(`/(root)/(tabs)/home`);
+                setShowSuccessModal(false);
+              }}
               className="mt-5"
             />
           </View>
