@@ -10,7 +10,7 @@ import { icons, images } from "@/constants";
 
 const SignIn = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -18,7 +18,7 @@ const SignIn = () => {
 
   const onSignInPress = useCallback(async () => {
     if (!isLoaded) return;
-
+    setIsLoading(true);
     try {
       const signInAttempt = await signIn.create({
         identifier: form.email,
@@ -36,6 +36,8 @@ const SignIn = () => {
     } catch (err: any) {
       console.log(JSON.stringify(err, null, 2));
       Alert.alert("Error", err.errors[0].longMessage);
+    } finally {
+      setIsLoading(false);
     }
   }, [isLoaded, form]);
 
@@ -70,6 +72,7 @@ const SignIn = () => {
           />
 
           <CustomButton
+            loading={isLoading}
             title="Sign In"
             onPress={onSignInPress}
             className="mt-6"

@@ -13,7 +13,7 @@ import { fetchAPI } from "@/lib/fetch";
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -27,6 +27,7 @@ const SignUp = () => {
 
   const onSignUpPress = async () => {
     if (!isLoaded) return;
+    setIsLoading(true);
     try {
       await signUp.create({
         emailAddress: form.email,
@@ -42,6 +43,8 @@ const SignUp = () => {
       // for more info on error handling
       console.log(JSON.stringify(err, null, 2));
       Alert.alert("Error", err.errors[0].longMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
   const onPressVerify = async () => {
@@ -182,6 +185,7 @@ const SignUp = () => {
               You have successfully verified your account.
             </Text>
             <CustomButton
+              loading={isLoading}
               title="Browse Home"
               onPress={() => router.push(`/(root)/(tabs)/home`)}
               className="mt-5"
