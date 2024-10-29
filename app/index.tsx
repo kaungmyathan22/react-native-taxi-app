@@ -1,6 +1,7 @@
-import React from "react";
-import { Redirect } from "expo-router";
 import { useAuth } from "@clerk/clerk-expo";
+import { Redirect } from "expo-router";
+import React from "react";
+import "react-native-get-random-values";
 
 export default function Home() {
   const { isSignedIn } = useAuth();

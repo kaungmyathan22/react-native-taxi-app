@@ -26,6 +26,7 @@ export const useFetch = <T>(url: string, options?: RequestInit) => {
       const result = await fetchAPI(url, options);
       setData(result.data);
     } catch (err) {
+      console.log(options, url);
       setError((err as Error).message);
     } finally {
       setLoading(false);
